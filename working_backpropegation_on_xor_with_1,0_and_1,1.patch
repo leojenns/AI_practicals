@@ -1,0 +1,44 @@
+Index: nn.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- nn.py	(revision 19f9a4d6504298f865dea65ba209ade3c207f635)
++++ nn.py	(date 1527708036000)
+@@ -176,9 +176,7 @@
+ xor = nn_network([nn_neuron(1.0,[0.2,-0.4]),nn_neuron(1.0,[0.7,0.1])],
+                       nn_network([nn_neuron(1.0,[0.6,0.9])],None,0.1),True)
+ 
+-#print(xor.get_result([0,1]))
+-xor.learn_threshold([1,1])
+-xor.print_activations()
++
+ 
+ #print(xor.get_result([0,1]))
+ #threshold test
+@@ -192,7 +190,9 @@
+ 
+ '''
+ 
+-
++#print(xor.get_result([0,1]))
++xor.learn_threshold([1,1])
++xor.print_activations()
+ 
+ xor.learn_delta([0])
+ xor.print_delta()
+@@ -200,3 +200,14 @@
+ 
+ xor.print_weights()
+ 
++
++print(' \n \n')
++
++xor.learn_threshold([1,0])
++xor.print_activations()
++
++xor.learn_delta([1])
++xor.print_delta()
++xor.learn_weights(0.1,[1,0])
++
++xor.print_weights()
