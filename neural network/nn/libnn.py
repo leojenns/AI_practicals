@@ -1,6 +1,7 @@
 
 from helperfuncs import *
 import copy
+import random
 class Neuron():
 
     def __init__(self,weights = []):
@@ -44,6 +45,9 @@ class Network():
 
         self.layer = layer
         self.next_layer = next_layer
+
+
+    def __str__ (self):
 
     def setLearnRate(self,l):
 
@@ -144,3 +148,18 @@ class Network():
         if self.next_layer:
            self.next_layer.print_weights(layer= layer+1)
         return
+
+
+def createNeuron(amount, minWeight, maxWeight ):
+    return( Neuron([random.uniform(minWeight, maxWeight) for _ in range( amount)]))
+
+def createNetwork(layers, min, max, before = None):
+    if not layers:
+        return (before)
+    if not before:
+        return createNetwork(layers[1:], min, max,  Network([createNeuron(layers[0][1], min, max) for _ in range(layers[0][2])]) )
+    return (before.setExtraLayer(Network([createNeuron(layers[0][1],min,max) for _ in range(layers[0][2])])))
+
+
+
+
