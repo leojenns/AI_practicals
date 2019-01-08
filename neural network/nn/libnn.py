@@ -1,6 +1,7 @@
 
 from helperfuncs import *
 import copy
+import itertools
 import random
 class Neuron():
 
@@ -14,6 +15,7 @@ class Neuron():
         return concat(operator.add, wstr)
 
     def len(self):
+
         self.length = len(self.weights)
 
     def setweights(self, weights):
@@ -32,6 +34,8 @@ class Neuron():
                 return sum(zipWithMultiply(self.weights, input))
         raise ValueError('amount of weights and amount of input does not same amount')
         print(input, self.weights)
+
+
     def DeltaRule(self,learningInput, learningRate, desiredAnswer):
         base = G(self.result(learningInput))
         for i in range(self.length):
@@ -45,12 +49,18 @@ class Network():
 
         self.layer = layer
         self.next_layer = next_layer
-
+        self.len = len(layer)
 
     def __str__ (self):
+        layer_string = concat (operator.add,
+                               [str(j)+ '\n' + str(i)  for i,j in
+                                list(zip(self.layer,range(self.len)))])
+
+        if not self.next_layer:
+            return layer_string
+        return layer_string + "\n" + str(self.next_layer)
 
     def setLearnRate(self,l):
-
         self.learn_rate = l
 
     def result(self,input):
@@ -153,13 +163,11 @@ class Network():
 def createNeuron(amount, minWeight, maxWeight ):
     return( Neuron([random.uniform(minWeight, maxWeight) for _ in range( amount)]))
 
+def createLayer(amount, weightAmount, minWeight, maxWeight):
+    return Network([createNeuron(weightAmount, minWeight, maxWeight)for _ in range(amount)])
+
 def createNetwork(layers, min, max, before = None):
-    if not layers:
-        return (before)
-    if not before:
-        return createNetwork(layers[1:], min, max,  Network([createNeuron(layers[0][1], min, max) for _ in range(layers[0][2])]) )
-    return (before.setExtraLayer(Network([createNeuron(layers[0][1],min,max) for _ in range(layers[0][2])])))
-
-
-
-
+    a = createLayer(layers[1],layers[0],min,max)
+    for i in range(2,(len(layers))):
+        a.setExtraLayer(createLayer(layers[i],layers[i-1],min,max))
+    return a

@@ -1,7 +1,7 @@
 import numpy as np
 import functools
 import operator
-
+import itertools
 def zipWith(f, xs , ys ):
     if (len(xs) == 0 or len(ys)==0):
         return []
@@ -20,12 +20,10 @@ def Gprime(number, afterG = True):
     return 1-G(G(number))
 
 def G(number):
-    return (np.tanh(number))
+    return np.tanh(number)
 
 
 def concat(f, lst):
     return functools.reduce(f, lst)
-
 def tobin(lst):
     return [ 0 if (i != lst.index(max(lst))) else 1   for i in range(len(lst)) ]
-

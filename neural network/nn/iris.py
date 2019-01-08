@@ -21,11 +21,7 @@ def sortt(mytable):
         print (row)
 
 
-
-iris_network = Network(layer=[Neuron([-0.2,0.4,-0.5,0.2]),Neuron([0.3,0.1,0.9,0.33]),Neuron([-0.1, 0.3,-1.3,0.3]),Neuron([0.3,0.2,-0.1,0.4]),Neuron([0.4,-0.3,-0.5,0.7])])
-
-iris_network.setExtraLayer(Network([Neuron([1.4, 2, 0.4, -0.9, 0.2]),Neuron([-0.3 ,-0.3 ,0.7 ,-0.9, 0.1]),Neuron([-2.4, -1.1, 0.4, 2.2, 0.7])]))
-iris_network.setExtraLayer(Network([Neuron([0.3,0.7,0.5]),Neuron([-0.7,0.6,0.9]),Neuron([-0.5,2.7,1.3])]))
+iris_network = createNetwork([4,5,3,3],-1,1)
 iris_copy = copy.deepcopy(iris_network)
 
 
@@ -42,7 +38,7 @@ training_data = data[:(int(len(data)*0.8))]
 validation_data = data[int(len(data)*0.8):]
 ml = iris_copy
 lr = 0.1
-for _ in range(1000):
+for _ in range(5000):
     for data_point in training_data:
         #print(data_point)
         for i in range(4):
@@ -61,20 +57,20 @@ for validation_point in validation_data:
     #print(validation_point)
     for i in range(4):
         validation_point[i] = float(validation_point[i])
-    print(ml.result(validation_point[0:4]))
+    #print(ml.result(validation_point[0:4]))
 
     if validation_point[4] == 'Iris-virginica':
-        if ml.result(validation_point[0:4]) == [0,0,1]:
+        if tobin(ml.result(validation_point[0:4])) == [0,0,1]:
             print(1)
     elif validation_point[4]== 'Iris-versicolor':
-        if ml.result(validation_point[0:4])==[0,1,0]:
+        if tobin(ml.result(validation_point[0:4]))==[0,1,0]:
             print(2)
     else:
-        if ml.result(validation_point[0:4])==[1,0,0]:
+        if tobin(ml.result(validation_point[0:4]))==[1,0,0]:
             print(3)
 
 
-print(validation_data)
+#print(validation_data)
 """
 m = []
 m_i =[]
