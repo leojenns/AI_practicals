@@ -72,19 +72,27 @@ def ChangePopulation(population):
 
 
 
-
+#empty population
 population={}
-
+#make base population
 for _ in range(20):
+    #new cards
     cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    #shuffle the cards
     random.shuffle(cards)
+    #slice cards
     slice = random.randint(1, 9)
     
-
+    #make separte piles based on slice
     _0 = tuple(cards[:slice])
     _1 = tuple(cards[slice:])
+    # add piles and the score of the piles to population
     population[(_0, _1)] = fitness(_0, _1)
 
+
+# evolution on the base population with 100 iterations
 for _ in range(100):
+    #evolve
     population = ChangePopulation(population)
+    #print new population
     print(population)
