@@ -3,11 +3,20 @@ import numpy as np
 class knn:
 
     def __init__(self, k):
+        """
+        init function for k-nn
+
+        k = the amount of neabours
+        """
         self.data = []
         self.labels = []
         self.k = k
 
     def load_csv_data(self,filename,set_data = 1):
+        """
+        function for loading csv 
+        filename  = name of csv file 
+        """
         data = np.genfromtxt(filename, delimiter=';', usecols=[1, 2, 3, 4, 5, 6, 7],
                              converters={5: lambda s: 0 if s == b"-1" else float(s),
                                          7: lambda s: 0 if s == b"-1" else float(s)})
@@ -41,24 +50,50 @@ class knn:
 
 
     def get_data(self):
+        """
+        get function for the data
+
+        return = the data loaded in
+        """
         return self.data
 
     def change_k(self,k):
+        """
+        function for setting the k 
+        k = int (number of neabours)
+        """
         self.k = k
 
     def get_k(self):
+        """
+        get function for the k
+
+        return = int (number of neabours)
+        """
         return self.k
 
     def most_common(self, lst):
+        """
+        most comman in list
+        """
         return max(set(lst), key=lst.count)
 
     def nearest(self, input):
+        """
+        get the nearest of the input with amount base on self.k
+
+        input = input
+        """
         distance_from_input = [np.linalg.norm(data_point-input) for data_point in self.data]
         distance_array = np.array(distance_from_input).argsort()[:self.k]
         labels_from_data = list(map(lambda x : self.labels[x], distance_array))
         return self.most_common(labels_from_data)
 
     def calulate_best_k(self, filename_validation_set, set_k=0):
+        """
+        calculation of the best k for the dataset
+        filename_validation_set = name of file
+        """
         v_data, v_labels = self.load_csv_data(filename_validation_set, 0)
         amount_correct = []
         for k in range(1, len(self.data)):

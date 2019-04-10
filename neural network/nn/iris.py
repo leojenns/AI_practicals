@@ -71,7 +71,7 @@ for validation_point in validation_data:
     else:
         if tobin(ml.result(validation_point[0:4]))==[1,0,0]:
             print(3)
-             correct = correct +1
+            correct = correct +1
 
 print (" total validation points are :", win)
 print ("total correct are ", correct)

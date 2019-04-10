@@ -14,30 +14,30 @@ class Neuron():
         self.delta = None
 
     def __str__(self):
-        """FIXME! briefly describe function
+        """string represitation
 
-        :returns: 
-        :rtype: 
+        :returns: string represitation
+        :rtype: string
 
         """
         wstr = ["weights : "+(str(x)+"\n") for x in self.weights]
         return concat(operator.add, wstr)
 
     def len(self):
-        """FIXME! briefly describe function
+        """len of the weights list
 
-        :returns: 
-        :rtype: 
+        :returns: length of number of weights
+        :rtype: int
 
         """
         self.length = len(self.weights)
 
     def setweights(self, weights):
-        """FIXME! briefly describe function
+        """set the weights
 
-        :param weights: 
-        :returns: 
-        :rtype: 
+        :param weights: lst
+        :returns: nothing
+        :rtype: noting
 
         """
 
@@ -45,31 +45,31 @@ class Neuron():
         self.length = len(self.weights)
 
     def setActivation(self, s):
-        """FIXME! briefly describe function
+        """set activation
 
-        :param s: 
-        :returns: 
-        :rtype: 
+        :param s: int 
+        :returns: nothing
+        :rtype:  nothing
 
         """
         self.activation = s
 
     def setDelta(self,s):
-        """FIXME! briefly describe function
+        """set delta
 
-        :param s: 
-        :returns: 
-        :rtype: 
+        :param s: int
+        :returns:  nothing
+        :rtype: nothing
 
         """
         self.delta = s
 
     def result(self, input):
-        """FIXME! briefly describe function
+        """result of neuron
 
-        :param input: 
-        :returns: 
-        :rtype: 
+        :param input: input of neuron 
+        :returns: result of neuro
+        :rtype: int
 
         """
         if len(input) is len(self.weights):
@@ -77,13 +77,13 @@ class Neuron():
         raise ValueError('amount of weights and amount of input does not same amount')
         print(input, self.weights)
     def DeltaRule(self,learningInput, learningRate, desiredAnswer):
-        """FIXME! briefly describe function
+        """delta regel
 
-        :param learningInput: 
-        :param learningRate: 
-        :param desiredAnswer: 
-        :returns: 
-        :rtype: 
+        :param learningInput: learing input 
+        :param learningRate:  learning rate
+        :param desiredAnswer: desired answer
+        :returns: new weights
+        :rtype: lst
 
         """
         base = G(self.result(learningInput))
@@ -95,11 +95,11 @@ class Neuron():
 class Network():
 
     def __init__(self,layer = [],next_layer = None):
-        """FIXME! briefly describe function
+        """init function for network
 
-        :param layer: 
-        :param next_layer: 
-        :returns: 
+        :param layer: list of neurons of current layer
+        :param next_layer: new network with new layers
+        :returns: nothing
         :rtype: 
 
         """
@@ -108,22 +108,22 @@ class Network():
         self.next_layer = next_layer
 
     def setLearnRate(self,l):
-        """FIXME! briefly describe function
+        """ set learning rate
 
-        :param l: 
-        :returns: 
-        :rtype: 
+        :param l: new learning rate (int)
+        :returns: noting
+        :rtype: nothing
 
         """
 
         self.learn_rate = l
 
     def result(self,input):
-        """FIXME! briefly describe function
+        """result of network
 
-        :param input: 
-        :returns: 
-        :rtype: 
+        :param input: list of input
+        :returns: result 
+        :rtype: list of int
 
         """
         result = list(map(lambda x: x.result(input),self.layer))
@@ -132,11 +132,10 @@ class Network():
         return self.next_layer.result(result)
 
     def setExtraLayer(self,next):
-        """FIXME! briefly describe function
-
-        :param next: 
-        :returns: 
-        :rtype: 
+        """set next layer
+        :param next: next network
+        :returns: nothing
+        :rtype: nothing
 
         """
         if self.next_layer is None:
@@ -145,11 +144,11 @@ class Network():
             self.next_layer.setExtraLayer(next)
 
     def threshold(self,input):
-        """FIXME! briefly describe function
+        """calculate treshold
 
-        :param input: 
-        :returns: 
-        :rtype: 
+        :param input: train input
+        :returns: nothing
+        :rtype: nothing
 
         """
         for i in self.layer:
@@ -165,11 +164,10 @@ class Network():
         return
 
     def delta(self,input = []):
-        """FIXME! briefly describe function
-
-        :param input: 
-        :returns: 
-        :rtype: 
+        """calculate delta rule network
+        :param input: train input
+        :returns: nothing
+        :rtype: nothing
 
         """
 
@@ -193,12 +191,12 @@ class Network():
             self.layer[i].setDelta((Gprime(self.layer[i].activation)) * (input[i]-self.layer[i].activation))
 
     def weight(self,learningrate,input = []):
-        """FIXME! briefly describe function
+        """calculate new weights
 
-        :param learningrate: 
-        :param input: 
-        :returns: 
-        :rtype: 
+        :param learningrate: float learning rate
+        :param input: train input
+        :returns: nothing
+        :rtype: nothing
 
         """
 
@@ -215,13 +213,13 @@ class Network():
             return
 
     def learn(self,input=[],learn_rate=1,should_be=[]):
-        """FIXME! briefly describe function
+        """learn network
 
-        :param input: 
-        :param learn_rate: 
-        :param should_be: 
-        :returns: 
-        :rtype: 
+        :param input: trai input list of numbers
+        :param learn_rate: learn rate float
+        :param should_be: desired resultof network
+        :returns: nothing
+        :rtype: nothing
 
         """
 
@@ -230,11 +228,11 @@ class Network():
         self.weight(learn_rate,input)
 
     def print_activations(self,layer=1):
-        """FIXME! briefly describe function
+        """print the activation
 
-        :param layer: 
-        :returns: 
-        :rtype: 
+        :param layer: int
+        :returns: printed on console all activations of network with next layers activations
+        :rtype: nothing
 
         """
         count = 0
@@ -247,11 +245,11 @@ class Network():
         return
 
     def print_delta(self,layer=1):
-        """FIXME! briefly describe function
+        """print delta of network
 
-        :param layer: 
-        :returns: 
-        :rtype: 
+        :param layer: int
+        :returns: printed on console all the deltas of the network
+        :rtype: nothing
 
         """
         count = 0
@@ -264,10 +262,10 @@ class Network():
         return
 
     def print_weights(self,layer = 1):
-        """FIXME! briefly describe function
+        """print all the weights
 
-        :param layer: 
-        :returns: 
+        :param layer: int
+        :returns: printed on the console all the weights of all the layers
         :rtype: 
 
         """

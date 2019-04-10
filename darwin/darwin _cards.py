@@ -2,6 +2,14 @@ import random
 import operator
 from functools import reduce 
 
+"""
+script for running evolution algorithm applied to two pilesof cards going from 1 to 10
+
+including repproduction and mutaion 
+
+"""
+
+
 def fitness(p1,p2):
     """Fitness function
 
