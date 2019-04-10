@@ -51,7 +51,8 @@ for _ in range(5000):
             ml.learn(data_point[0:4],lr,[0,1,0])
         else:
             ml.learn(data_point[0:4],lr,[1,0,0])
-
+win     = len(validation_data)
+correct = 0
 for validation_point in validation_data:
     #print(ml.result(validation_point))
     #print(validation_point)
@@ -62,104 +63,20 @@ for validation_point in validation_data:
     if validation_point[4] == 'Iris-virginica':
         if tobin(ml.result(validation_point[0:4])) == [0,0,1]:
             print(1)
+            correct = correct + 1
     elif validation_point[4]== 'Iris-versicolor':
         if tobin(ml.result(validation_point[0:4]))==[0,1,0]:
             print(2)
+            correct = correct + 1
     else:
         if tobin(ml.result(validation_point[0:4]))==[1,0,0]:
             print(3)
+             correct = correct +1
 
-
-#print(validation_data)
-"""
-m = []
-m_i =[]
-
-h = 10
-print(h)
-for lr in np.arange(0.001, 0.3, 0.001):
-    iris = copy.deepcopy(iris_copy)
-    for _ in range(h):
-
-        with open('shuffled.csv','r') as d :
-            reader = csv.reader(d,delimiter = ',')
-            for row in reader:
-                for i in range(4):
-                    row[i] = float(row[i])
-                if row[4] == 'Iris-virginica':
-                    iris.learn(row[0:4],lr,[0,0,1])
-                elif row[4]== 'Iris-versicolor':
-                    iris.learn(row[0:4],lr,[0,1,0])
-                else:
-                    iris.learn(row[0:4],lr,[1,0,0])
+print (" total validation points are :", win)
+print ("total correct are ", correct)
+print ("score =" , win / correct *100)
 
 
 
 
-    count = 0
-
-    with open('shuffled.csv','r') as d :
-        reader = csv.reader(d,delimiter = ',')
-        for row in reader:
-            for i in range(4):
-                row[i] = float(row[i])
-            if row[4] == 'Iris-virginica':
-                l=[0,0,1]
-            elif row[4]== 'Iris-versicolor':
-                l =[0,1,0]
-            else:
-                l = [1,0,0]
-
-            if iris.result(row[0:4]) == l:
-                count +=1
-
-
-    m.append(count)
-    m_i.append(lr)
-
-print(max(m))
-print(m_i[m.index(max(m))])
-
-
-
-values = []
-for times in range(0,50):
-    print(times)
-    for lr in np.arange(0.01,0.04, 0.0005):
-
-
-
-        iris = copy.deepcopy(iris_copy)
-        for _ in range(times):
-
-            with open('shuffled.csv','r') as d :
-                reader = csv.reader(d,delimiter = ',')
-                for row in reader:
-                    for i in range(4):
-                        row[i] = float(row[i])
-                    if row[4] == 'Iris-virginica':
-                        iris.learn(row[0:4],lr,[0,0,1])
-                    elif row[4]== 'Iris-versicolor':
-                        iris.learn(row[0:4],lr,[0,1,0])
-                    else:
-                        iris.learn(row[0:4],lr,[1,0,0])
-
-        with open('shuffled.csv','r') as d :
-            reader = csv.reader(d,delimiter = ',')
-            for row in reader:
-                for i in range(4):
-                    row[i] = float(row[i])
-                if row[4] == 'Iris-virginica':
-                    l=[0,0,1]
-                elif row[4]== 'Iris-versicolor':
-                    l =[0,1,0]
-                else:
-                    l = [1,0,0]
-
-                if iris.result(row[0:4]) == l:
-                    count +=1
-
-        values.append([times,lr,count])
-
-sortt(values)
-"""
